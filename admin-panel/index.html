@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DZ Game Market</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="css/admin.css">
+<link rel="stylesheet" href="css/admin-enhancements.css">
+</head>
+<body>
+<header class="admin-top"><a href="index.html" class="brand"><i class="fa-solid fa-gamepad"></i> DZ Game Market</a><span id="adminTopTitle">لوحة إدارة المنتجات</span><div class="admin-top-actions"><div class="admin-language-wrap">
+<button type="button" id="adminLanguageToggle" class="admin-tool-btn admin-language-trigger" aria-label="تغيير اللغة" aria-expanded="false"><i class="fa-solid fa-language"></i><span id="adminCurrentLanguage">العربية</span><i class="fa-solid fa-chevron-down"></i></button>
+<div id="adminLanguageMenu" class="admin-language-menu" role="menu">
+<button type="button" data-admin-lang="ar" role="menuitem">🇩🇿 العربية</button>
+<button type="button" data-admin-lang="fr" role="menuitem">🇫🇷 Français</button>
+<button type="button" data-admin-lang="en" role="menuitem">🇬🇧 English</button>
+</div></div><button type="button" id="adminThemeToggle" class="admin-tool-btn" aria-label="تغيير الوضع"><i class="fa-solid fa-moon"></i><span>الوضع الليلي</span></button></div></header>
+<main class="admin-wrap">
+<section id="loginSection" class="panel login-panel">
+  <div class="panel-icon"><i class="fa-solid fa-shield-halved"></i></div><h1>دخول المسؤول</h1><p>سجّل الدخول بحساب المسؤول</p>
+  <form id="loginForm"><label>البريد الإلكتروني<input id="email" type="email" required autocomplete="username"></label><label>كلمة المرور<input id="password" type="password" required autocomplete="current-password"></label><button class="primary-btn" type="submit">تسجيل الدخول</button></form><p id="loginStatus" class="status"></p>
+</section>
+<section id="dashboard" hidden>
+  <div class="dashboard-heading"><div><span class="eyebrow">CONTROL PANEL</span><h1>إدارة المنتجات</h1><p>أضف المنتجات والصور وعدّلها أو احذفها دون تغيير الكود.</p></div><div class="head-actions"><button id="refreshBtn" class="light-btn"><i class="fa-solid fa-rotate"></i> تحديث</button><button id="logoutBtn" class="light-btn"><i class="fa-solid fa-right-from-bracket"></i> خروج</button></div></div>
+  <div class="stats-row"><div class="stat"><i class="fa-solid fa-user-tag"></i><span>حسابات للبيع</span><strong id="accountCount">0</strong></div><div class="stat"><i class="fa-solid fa-bolt"></i><span>عروض الشحن</span><strong id="rechargeCount">0</strong></div></div>
+  <section class="panel">
+    <div class="panel-heading"><div><h2 id="formTitle">إضافة منتج جديد</h2><p>اختر نوع المنتج لتظهر الحقول المناسبة.</p></div></div>
+    <form id="productForm" class="product-form">
+      <input type="hidden" id="productId">
+      <div class="form-grid">
+        <label>نوع المنتج<select id="category" required><option value="account">حساب لعبة للبيع</option><option value="recharge">عرض شحن</option></select></label>
+        <label>اسم اللعبة<input id="game" required placeholder="مثال: Free Fire"></label>
+        <label class="account-only">اسم الحساب / عنوان العرض<input id="name" required placeholder="مثال: حساب Free Fire مستوى مرتفع"></label>
+        <label>السعر بالدينار الجزائري (دج)<input id="price" type="number" min="0" step="0.01" placeholder="مثال: 3500"></label>
+        <label>السعر بالدولار (USD)<input id="priceUsd" type="number" min="0" step="0.01" placeholder="اتركه فارغًا إذا لم تدعم الدولار"></label>
+        <label>سعر الفليكسي (دج)<input id="priceFlexy" type="number" min="0" step="0.01" placeholder="اتركه فارغًا إذا لم تدعم الفليكسي"></label>
+        <div class="payment-support full">
+          <strong>طرق الدفع المدعومة لهذا المنتج</strong>
+          <label class="check-label"><input id="supportsDzd" type="checkbox" checked> ندعم الدفع بالدينار الجزائري</label>
+          <label class="check-label"><input id="supportsUsd" type="checkbox" checked> ندعم الدفع بالدولار</label>
+          <label class="check-label"><input id="supportsFlexy" type="checkbox" checked> ندعم الفليكسي</label>
+          <small class="hint">عند إلغاء التفعيل ستظهر للزبون عبارة «لا ندعم هذه الطريقة».</small>
+        </div>
+        <label class="full">الوصف<textarea id="description" rows="3" placeholder="اكتب تفاصيل الحساب أو معلومات عرض الشحن"></textarea></label>
+        <label class="full">الصورة الرئيسية <span class="hint">(صورة الحساب أو صورة أسعار الشحن)</span><input id="image" type="file" accept="image/jpeg,image/png,image/webp"><img id="imagePreview" class="preview" hidden alt="معاينة الصورة"></label>
+        <label class="account-only full">صور إضافية للحساب <span class="hint">(يمكن اختيار أكثر من صورة)</span><input id="gallery" type="file" accept="image/jpeg,image/png,image/webp" multiple><div id="galleryPreview" class="gallery-preview"></div></label>
+        <label class="full">روابط حساب البائع على مواقع التواصل <span class="hint">(كل رابط في سطر منفصل؛ مثل Instagram أو Facebook أو WhatsApp)</span><textarea id="sellerSocial" rows="3" placeholder="https://instagram.com/username&#10;https://wa.me/213..."></textarea></label>
+        <label id="promotionWrap" class="promotion-toggle"><input id="isPromotion" type="checkbox"><span><strong>عرض ترويجي مثبت</strong><small>عند تفعيله يظهر عرض الشحن قبل العروض العادية في أعلى القسم.</small></span></label>
+      </div>
+      <div class="form-actions"><button type="submit" id="saveBtn" class="primary-btn"><i class="fa-solid fa-floppy-disk"></i> حفظ المنتج</button><button type="button" id="cancelEdit" class="light-btn" hidden>إلغاء التعديل</button></div><p id="statusMessage" class="status"></p>
+    </form>
+  </section>
+  <section class="panel">
+    <div class="panel-heading"><div><h2 id="mediatorFormTitle">إضافة وسيط جديد</h2><p>أضف صورة الوسيط وروابط Facebook وWhatsApp وInstagram وTikTok.</p></div></div>
+    <form id="mediatorForm" class="product-form">
+      <input type="hidden" id="mediatorId">
+      <div class="form-grid">
+        <label>اسم الوسيط<input id="mediatorName" required placeholder="اسم الوسيط"></label>
+        <label>نبذة عن الوسيط<input id="mediatorDescription" placeholder="مثال: وسيط معاملات حسابات الألعاب"></label>
+        <label class="full">صورة الوسيط<input id="mediatorImage" type="file" accept="image/jpeg,image/png,image/webp"><img id="mediatorImagePreview" class="preview" hidden alt="معاينة صورة الوسيط"></label>
+        <label>رابط Facebook<input id="mediatorFacebook" type="url" placeholder="https://facebook.com/..."></label>
+        <label>رابط WhatsApp<input id="mediatorWhatsapp" type="url" placeholder="https://wa.me/213..."></label>
+        <label>رابط Instagram<input id="mediatorInstagram" type="url" placeholder="https://instagram.com/..."></label>
+        <label>رابط TikTok<input id="mediatorTiktok" type="url" placeholder="https://tiktok.com/@..."></label>
+        <label class="check-label"><input id="mediatorActive" type="checkbox" checked> إظهار الوسيط في الموقع</label>
+      </div>
+      <div class="form-actions"><button type="submit" id="saveMediatorBtn" class="primary-btn"><i class="fa-solid fa-floppy-disk"></i> حفظ الوسيط</button><button type="button" id="cancelMediatorEdit" class="light-btn" hidden>إلغاء التعديل</button></div>
+      <p id="mediatorStatus" class="status"></p>
+    </form>
+    <div class="panel-heading"><div><h2>الوسطاء المسجلون</h2></div></div>
+    <div id="mediatorList" class="product-list"></div>
+    <p id="mediatorEmptyState" class="empty-state" hidden>لم تتم إضافة وسطاء بعد.</p>
+  </section>
+  <section class="panel"><div class="panel-heading"><div><h2>المنتجات المنشورة</h2><p>يمكنك تعديل أي منتج أو حذفه من الموقع.</p></div></div><div id="productList" class="product-list"></div><p id="emptyState" class="empty-state" hidden>لا توجد منتجات حتى الآن. أضف أول منتج من النموذج أعلاه.</p></section>
+</section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/supabase-client.js"></script><script src="js/admin.js"></script>
+<script src="js/admin-enhancements.js"></script>
+</body></html>
