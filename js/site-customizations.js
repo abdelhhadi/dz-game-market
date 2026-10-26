@@ -21,11 +21,14 @@
     if (overlay) overlay.addEventListener('click', e => { if (e.target === overlay) window.dzgmCloseInfoModal(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') window.dzgmCloseInfoModal(); });
   });
-  const contactLinks = {
-    whatsapp: 'https://wa.me/213XXXXXXXXX',
-    facebook: 'https://www.facebook.com/YOUR_PAGE',
-    instagram: 'https://www.instagram.com/YOUR_USERNAME/',
+  
+const contactLinks = {
+    whatsapp: 'https://wa.me/qr/56YHJVE6VGIDJ1',
+    facebook: 'https://www.facebook.com/share/1NqowXmR6r/',
+    instagram: 'https://www.instagram.com/abdelhhadi?rpxt=a3A5MnBncXd3djFq',
     tiktok: 'https://www.tiktok.com/@YOUR_USERNAME'
+};
+
   };
   const terms = `<section class="dzgm-terms-content"><p><strong>آخر تحديث: أكتوبر 2026</strong></p>
   <h3>1. طبيعة المنصة</h3><p>DZ Game Market منصة لعرض إعلانات الحسابات الرقمية وخدمات شحن الألعاب وربط المستخدمين بالبائعين والوسطاء. ما لم يُذكر صراحةً خلاف ذلك، فالمنصة ليست مالكة للحسابات المعروضة ولا تضمن موافقة ناشر اللعبة على نقل الحساب.</p>

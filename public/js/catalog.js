@@ -79,7 +79,7 @@ function renderAccounts() {
   if (search) result = result.filter(p => `${p.name} ${p.game} ${p.description}`.toLowerCase().includes(search));
   if (sort === "low") result.sort((a,b)=>Number(a.price)-Number(b.price));
   if (sort === "high") result.sort((a,b)=>Number(b.price)-Number(a.price));
-  if (!result.length) { grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><i class="fa-solid fa-gamepad"></i><h3>${dzgmEsc(translations[currentLanguage]?.accounts || "الحسابات")}</h3><p>${currentLanguage==="fr"?"Aucune offre pour le moment.":currentLanguage==="en"?"No offers available yet.":"لا توجد حسابات متاحة حاليًا. أضفها من لوحة المسؤول."}</p></div>`; return; }
+  if (!result.length) { grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><i class="fa-solid fa-gamepad"></i><h3>${dzgmEsc(translations[currentLanguage]?.accounts || "الحسابات")}</h3><p>${currentLanguage==="fr"?"Aucune offre pour le moment.":currentLanguage==="en"?"No offers available yet.":"لا توجد حسابات متاحة حاليًا. أ"}</p></div>`; return; }
   grid.innerHTML = result.map(p => `<article class="product-card dzgm-product-card">
     ${dzgmPhotoMarkup(p)}
     <div class="product-content"><small>${dzgmEsc(p.game)}</small><h3>${dzgmEsc(p.name)}</h3>
@@ -91,7 +91,7 @@ function renderAccounts() {
 function renderRecharges() {
   const grid = document.getElementById("rechargesGrid"); if (!grid) return;
   const result = recharges.filter(p => p.is_active !== false).sort((a,b)=>Number(Boolean(b.is_promotion))-Number(Boolean(a.is_promotion)) || Number(b.created_at_timestamp||0)-Number(a.created_at_timestamp||0));
-  if (!result.length) { grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><i class="fa-solid fa-bolt"></i><h3>${dzgmEsc(translations[currentLanguage]?.recharges || "الشحن")}</h3><p>${currentLanguage==="fr"?"Aucune offre pour le moment.":currentLanguage==="en"?"No top-up offers yet.":"لا توجد عروض شحن حاليًا. أضفها من لوحة المسؤول."}</p></div>`; return; }
+  if (!result.length) { grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><i class="fa-solid fa-bolt"></i><h3>${dzgmEsc(translations[currentLanguage]?.recharges || "الشحن")}</h3><p>${currentLanguage==="fr"?"Aucune offre pour le moment.":currentLanguage==="en"?"No top-up offers yet.":"لا توجد عروض شحن حاليًا. أ"}</p></div>`; return; }
   grid.innerHTML = result.map(p => `<article class="product-card dzgm-product-card ${p.is_promotion ? "dzgm-promoted" : ""}">
     ${p.is_promotion ? `<span class="dzgm-promo-ribbon"><i class="fa-solid fa-star"></i> ${dzgmT("promotion", "عرض مميز")}</span>` : ""}
     ${dzgmPhotoMarkup(p)}
