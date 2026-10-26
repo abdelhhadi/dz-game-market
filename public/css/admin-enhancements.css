@@ -1,0 +1,90 @@
+/* Additive admin dashboard theme and readability improvements */
+:root{--admin-bg:#f3f6fb;--admin-panel:#fff;--admin-text:#172033;--admin-muted:#68778d;--admin-line:#dfe7f2;--admin-input:#fff;--admin-soft:#edf3fb}
+body{background:var(--admin-bg);color:var(--admin-text);transition:background .2s,color .2s}
+.panel,.stat{background:var(--admin-panel);color:var(--admin-text);border-color:var(--admin-line)}
+input:not([type=checkbox]),textarea,select{background:var(--admin-input);color:var(--admin-text);border-color:var(--admin-line)}
+input::placeholder,textarea::placeholder{color:var(--admin-muted);opacity:1}
+.admin-top-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.admin-tool-btn{border:1px solid #355071;background:#172a45;color:#f3f7ff;border-radius:10px;padding:9px 12px;display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:700;cursor:pointer}
+.admin-tool-btn:hover{background:#24466f}
+body[data-admin-theme="dark"]{--admin-bg:#081323;--admin-panel:#101f34;--admin-text:#edf4ff;--admin-muted:#b3c4dc;--admin-line:#2b4260;--admin-input:#0b192b;--admin-soft:#172a43;color:var(--admin-text)}
+body[data-admin-theme="dark"] .panel,body[data-admin-theme="dark"] .stat{box-shadow:0 8px 28px #0003}
+body[data-admin-theme="dark"] .light-btn,body[data-admin-theme="dark"] .secondary-btn{background:#203550;color:#eaf2ff;border:1px solid #365171}
+body[data-admin-theme="dark"] .danger-btn{background:#3a2029;color:#ffdce2}
+body[data-admin-theme="dark"] .panel-icon,body[data-admin-theme="dark"] .stat i{background:#1c3555;color:#8dc0ff}
+body[data-admin-theme="dark"] .promotion-toggle{background:#302b1b;border-color:#8b7134;color:#fff0c7}
+body[data-admin-theme="dark"] .admin-product-card{border-color:var(--admin-line);background:#0d1a2d}
+body[data-admin-theme="dark"] .admin-product-card>img{background:#0a1424}
+body[data-admin-theme="dark"] .product-tag{background:#1b3b63;color:#cde3ff}
+body[data-admin-theme="dark"] .product-tag.promo{background:#4a3a15;color:#ffe39a}
+body[data-admin-theme="dark"] .empty-state{color:var(--admin-muted)}
+body[data-admin-theme="dark"] .preview,body[data-admin-theme="dark"] .gallery-preview img{border-color:var(--admin-line)}
+body[data-admin-theme="dark"] input[type="checkbox"]{accent-color:#5b9cff}
+[dir="ltr"] .admin-top{direction:ltr}
+[dir="ltr"] .form-actions,[dir="ltr"] .head-actions{justify-content:flex-start}
+@media(max-width:700px){.admin-top-actions{width:100%;justify-content:space-between}.admin-tool-btn{font-size:12px;padding:8px 9px}}
+
+
+/* Strong, full-dashboard navy theme overrides */
+html,body{min-height:100%;background:var(--admin-bg);color:var(--admin-text)}
+body[data-admin-theme="dark"]{background:#081323!important;color:#edf4ff!important;color-scheme:dark}
+body[data-admin-theme="dark"] .admin-wrap{background:transparent}
+body[data-admin-theme="dark"] .dashboard-heading h1,
+body[data-admin-theme="dark"] .panel h1,
+body[data-admin-theme="dark"] .panel h2,
+body[data-admin-theme="dark"] .panel h3,
+body[data-admin-theme="dark"] label,
+body[data-admin-theme="dark"] .stat strong{color:#edf4ff}
+body[data-admin-theme="dark"] .dashboard-heading p,
+body[data-admin-theme="dark"] .panel p,
+body[data-admin-theme="dark"] .hint,
+body[data-admin-theme="dark"] .stat span{color:#b8c9e2}
+body[data-admin-theme="dark"] .panel,
+body[data-admin-theme="dark"] .stat,
+body[data-admin-theme="dark"] .admin-product-card{background:#101f34!important;border-color:#2b4260!important;color:#edf4ff}
+body[data-admin-theme="dark"] input:not([type=checkbox]),
+body[data-admin-theme="dark"] textarea,
+body[data-admin-theme="dark"] select{background:#0b192b!important;color:#edf4ff!important;border-color:#365171!important;color-scheme:dark}
+body[data-admin-theme="dark"] select option{background:#0b192b;color:#edf4ff}
+body[data-admin-theme="dark"] .light-btn,
+body[data-admin-theme="dark"] .secondary-btn{background:#203550!important;color:#eaf2ff!important;border-color:#365171!important}
+body[data-admin-theme="dark"] .login-panel .panel-icon{background:#1c3555;color:#8dc0ff}
+body[data-admin-theme="dark"] .product-actions .danger-btn{background:#3a2029!important;color:#ffdce2!important}
+body[data-admin-theme="dark"] .status{color:#b8d8ff}
+body[data-admin-theme="dark"] .status.error{color:#ff9eaa}
+body[data-admin-theme="dark"] .empty-state{background:#0d1a2d;color:#b8c9e2}
+body[data-admin-theme="dark"] .admin-product-info p{color:#b8c9e2}
+body[data-admin-theme="dark"] .admin-tool-btn[aria-pressed="true"]{background:#28496f;border-color:#5a8ac2}
+
+/* Three-language dropdown styled like the public site's language menu */
+.admin-language-wrap{position:relative;display:inline-flex;align-items:center}
+.admin-language-trigger{min-width:130px;justify-content:space-between}
+.admin-language-menu{display:none;position:absolute;z-index:1000;top:calc(100% + 8px);inset-inline-end:0;min-width:170px;padding:7px;background:#12233b;border:1px solid #355071;border-radius:14px;box-shadow:0 14px 34px #0004}
+.admin-language-menu.is-open{display:grid;gap:4px}
+.admin-language-menu button{border:0;border-radius:9px;background:transparent;color:#eaf2ff;padding:10px 12px;text-align:start;font:inherit;font-weight:700;cursor:pointer}
+.admin-language-menu button:hover,.admin-language-menu button[aria-current="true"]{background:#24466f;color:#fff}
+body[data-admin-theme="light"] .admin-language-menu{background:#fff;border-color:#dfe7f2;box-shadow:0 14px 34px #1d355722}
+body[data-admin-theme="light"] .admin-language-menu button{color:#172033}
+body[data-admin-theme="light"] .admin-language-menu button:hover,body[data-admin-theme="light"] .admin-language-menu button[aria-current="true"]{background:#eaf2ff;color:#145cc0}
+.admin-language-menu button{display:block;width:100%}
+
+
+/* Centered custom delete confirmation modal */
+.dzgm-confirm-overlay{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:20px;background:rgba(3,10,22,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:dzgmConfirmFade .16s ease-out}
+.dzgm-confirm-dialog{box-sizing:border-box;width:min(100%,420px);margin:auto;padding:28px;border:1px solid rgba(148,163,184,.25);border-radius:22px;background:#111d30;color:#f8fafc;box-shadow:0 24px 80px rgba(0,0,0,.45);text-align:center;animation:dzgmConfirmPop .2s ease-out}
+.dzgm-confirm-icon{display:grid;place-items:center;width:62px;height:62px;margin:0 auto 16px;border-radius:50%;background:rgba(239,68,68,.14);color:#fb7185;font-size:25px}
+.dzgm-confirm-dialog h2{margin:0 0 12px;font-size:23px;font-weight:800;color:inherit}
+.dzgm-confirm-dialog p{margin:0;color:#d1d9e6;line-height:1.8;overflow-wrap:anywhere}
+.dzgm-confirm-dialog .dzgm-confirm-warning{margin-top:5px;color:#94a3b8;font-size:13px}
+.dzgm-confirm-actions{display:flex;gap:12px;margin-top:24px}
+.dzgm-confirm-actions button{flex:1;min-height:46px;border:0;border-radius:12px;padding:10px 14px;font:inherit;font-weight:700;cursor:pointer;transition:transform .15s,filter .15s}
+.dzgm-confirm-actions button:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.dzgm-confirm-delete{background:#dc3545;color:white}
+.dzgm-confirm-cancel{background:#26364d;color:#f8fafc;border:1px solid #40516a!important}
+body[data-admin-theme="light"] .dzgm-confirm-dialog{background:#fff;color:#172033;border-color:#e2e8f0}
+body[data-admin-theme="light"] .dzgm-confirm-dialog p{color:#475569}
+body[data-admin-theme="light"] .dzgm-confirm-dialog .dzgm-confirm-warning{color:#64748b}
+body[data-admin-theme="light"] .dzgm-confirm-cancel{background:#edf2f7;color:#172033;border-color:#d7e0ea!important}
+@keyframes dzgmConfirmFade{from{opacity:0}to{opacity:1}}
+@keyframes dzgmConfirmPop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:480px){.dzgm-confirm-dialog{padding:22px 18px;border-radius:18px}.dzgm-confirm-actions{gap:9px}}

@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DZ Game Market</title>
+
+    <meta name="description"
+          content="DZ Game Market - منصة الألعاب الجزائرية للحسابات وشحن الألعاب">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+ <link rel="icon"
+      type="image/png"
+      href="./dz-game-market.png?v=3"
+     class="game-market-logo">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link rel="stylesheet" href="css/style.css?v=deep-blue-night-3">
+</head>
+
+<body>
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<header class="navbar">
+
+
+    <div class="nav-container">
+        <a href="#" class="logo" onclick="showPage('home'); return false;">
+
+            <div> <img  src="https://drive.google.com/thumbnail?id=1BdH4zdAh-NtOT6fUuIedgq9y7K2ROiXM"
+        alt="Gaming Logo"
+        referrerpolicy="no-referrer">
+    
+            </div>
+
+              <div class="logo-text">
+                <strong>DZ Game</strong>
+                <span>Market</span>
+              </div>
+
+        </a>
+
+
+        <nav class="menu">
+
+            <a href="#" class="active"
+               data-i18n="nav_home"
+               onclick="showPage('home'); return false;">
+                الرئيسية
+            </a>
+
+            <a href="#accounts"
+               data-i18n="nav_accounts"
+               onclick="showPage('accounts'); return false;">
+                الحسابات
+            </a>
+
+            <a href="#recharges"
+               data-i18n="nav_recharges"
+               onclick="showPage('recharges'); return false;">
+                الشحن
+            </a>
+
+            <a href="#about"
+               data-i18n="nav_about"
+               onclick="showPage('about'); return false;">
+                من نحن
+            </a>
+
+
+        </nav>
+
+        <div class="nav-actions">
+            <div class="theme-switcher" role="group" aria-label="اختيار المظهر">
+                <button type="button" data-theme-choice="light" title="الوضع الأبيض" aria-label="الوضع الأبيض"><i class="fa-solid fa-sun"></i></button>
+                <button type="button" data-theme-choice="dark" title="الوضع الليلي" aria-label="الوضع الليلي"><i class="fa-solid fa-moon"></i></button>
+            </div>
+
+            <!-- LANGUAGE -->
+
+            <div class="language-wrapper">
+
+                <button class="language-btn"
+                        onclick="toggleLanguageMenu()">
+
+                    <i class="fa-solid fa-language"></i>
+
+                    <span id="currentLanguage">
+                        العربية
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down"></i>
+
+                </button>
+
+                <div class="language-menu"
+                     id="languageMenu">
+
+                    <button onclick="changeLanguage('ar')">
+                        🇩🇿 العربية
+                    </button>
+
+                    <button onclick="changeLanguage('fr')">
+                        🇫🇷 Français
+                    </button>
+
+                    <button onclick="changeLanguage('en')">
+                        🇬🇧 English
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- CART -->
+
+            
+            <!-- Mobile menu button removed from this header -->
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     MOBILE MENU
+========================================================= -->
+
+<div class="mobile-menu"
+     id="mobileMenu">
+
+    <a href="#"
+       data-i18n="nav_home"
+       onclick="showPage('home'); toggleMobileMenu(); return false;">
+        الرئيسية
+    </a>
+
+    <a href="#accounts"
+       data-i18n="nav_accounts"
+       onclick="showPage('accounts'); toggleMobileMenu(); return false;">
+        الحسابات
+    </a>
+
+    <a href="#recharges"
+       data-i18n="nav_recharges"
+       onclick="showPage('recharges'); toggleMobileMenu(); return false;">
+        الشحن
+    </a>
+
+    <a href="#about"
+       data-i18n="nav_about"
+       onclick="showPage('about'); toggleMobileMenu(); return false;">
+        من نحن
+    </a>
+
+
+   
+</div>
+
+
+<!-- =========================================================
+     HOME PAGE
+========================================================= -->
+
+<main id="homePage"
+      class="page active">
+
+    <section class="hero">
+
+        <div class="hero-container">
+
+            <div class="hero-content">
+
+                <div class="hero-badge">
+
+                    <i class="fa-solid fa-bolt"></i>
+
+                    <span data-i18n="hero_badge">
+                        منصة الألعاب الجزائرية
+                    </span>
+
+                </div>
+
+
+                <h1>
+
+                    <span data-i18n="hero_title">
+                        كل عالم الألعاب
+                    </span>
+
+                    <span data-i18n="hero_title_2">
+                        في مكان واحد
+                    </span>
+
+                </h1>
+
+
+                <p data-i18n="hero_description">
+                    اشترِ حسابات الألعاب، بع حساباتك،
+                    واشحن ألعابك المفضلة بسهولة وسرعة.
+                    كل ما يحتاجه اللاعب الجزائري في منصة واحدة.
+                </p>
+
+
+                <div class="hero-buttons">
+
+                    <button class="btn btn-primary"
+                            onclick="showPage('accounts')">
+
+                        <i class="fa-solid fa-store"></i>
+
+                        <span data-i18n="buy_account">
+                            شراء حساب
+                        </span>
+
+                    </button>
+
+
+                    <button class="btn btn-secondary"
+                            onclick="showPage('recharges')">
+
+                        <i class="fa-solid fa-bolt"></i>
+
+                        <span data-i18n="recharge_account">
+                            شحن حساب
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-visual">
+
+                
+                    
+
+
+               
+                </div>
+
+
+
+                </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <section class="search-section">
+
+        <div class="search-container">
+
+            <div class="search-title">
+
+                <span data-i18n="marketplace_label">
+                    MARKETPLACE
+                </span>
+
+                <h2 data-i18n="search_title">
+                    ماذا تبحث عنه؟
+                </h2>
+
+            </div>
+
+
+            <div class="search-box">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="text"
+                    id="globalSearch"
+                    data-i18n-placeholder="search_placeholder"
+                    placeholder="ابحث عن لعبة أو حساب أو شحن..."
+                    onkeyup="globalSearch()"
+                >
+
+                <button onclick="globalSearch()"
+                        data-i18n="search">
+                    بحث
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CATEGORIES -->
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <span data-i18n="services">
+                خدماتنا
+            </span>
+
+            <h2 data-i18n="choose_service">
+                اختر ما تحتاج إليه
+            </h2>
+
+            <p data-i18n="services_description">
+                اشترِ حسابات الألعاب أو اشحن ألعابك المفضلة بسهولة.
+            </p>
+
+        </div>
+
+
+        <div class="category-grid">
+
+
+            <!-- ACCOUNTS -->
+
+            <div class="category-card accounts-card">
+
+                <div class="category-icon">
+
+                    <i class="fa-solid fa-user"></i>
+
+                </div>
+
+
+                <div class="category-content">
+
+                    <span class="category-label"
+                          data-i18n="marketplace">
+                        MARKETPLACE
+                    </span>
+
+                    <h3 data-i18n="game_accounts">
+                        حسابات الألعاب
+                    </h3>
+
+                    <p data-i18n="accounts_description">
+                        اكتشف حسابات ألعاب متوفرة للبيع
+                        مع معلومات واضحة عن المستوى،
+                        العناصر، السعر والحالة.
+                    </p>
+
+                    <a href="#accounts"
+                       class="category-link"
+                       onclick="showPage('accounts'); return false;">
+
+                        <span data-i18n="discover_accounts">
+                            اكتشف الحسابات
+                        </span>
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- RECHARGES -->
+
+            <div class="category-card recharge-card">
+
+                <div class="category-icon">
+
+                    <i class="fa-solid fa-bolt"></i>
+
+                </div>
+
+
+                <div class="category-content">
+
+                    <span class="category-label"
+                          data-i18n="services">
+                        SERVICES
+                    </span>
+
+                    <h3 data-i18n="game_recharges">
+                        شحن الألعاب
+                    </h3>
+
+                    <p data-i18n="recharges_description">
+                        اختر اللعبة والمبلغ وأدخل
+                        معلومات الحساب المطلوبة
+                        لإتمام طلب الشحن.
+                    </p>
+
+                    <a href="#recharges"
+                       class="category-link"
+                       onclick="showPage('recharges'); return false;">
+
+                        <span data-i18n="view_recharges">
+                            مشاهدة الشحن
+                        </span>
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- POPULAR GAMES -->
+
+
+
+    <!-- FEATURED PRODUCTS -->
+
+   
+
+</main>
+
+
+<!-- =========================================================
+     ACCOUNTS PAGE
+========================================================= -->
+
+<section id="accountsPage"
+         class="page">
+
+    <div class="page-header">
+
+        <div class="page-header-content">
+
+            <div class="breadcrumb">
+
+                <span onclick="showPage('home')"
+                      style="cursor:pointer"
+                      data-i18n="home">
+                    الرئيسية
+                </span>
+
+                <i class="fa-solid fa-chevron-left"></i>
+
+                <span data-i18n="accounts">
+                    الحسابات
+                </span>
+
+            </div>
+
+
+            <h1 data-i18n="accounts_title">
+                حسابات الألعاب
+            </h1>
+
+            <p data-i18n="accounts_page_description">
+                اختر حسابك من بين الحسابات المتوفرة.
+                يمكنك استخدام الفلاتر للعثور بسرعة
+                على الحساب المناسب لك.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="filters">
+
+            <div class="filter-group">
+
+                <label data-i18n="game">
+                    اللعبة
+                </label>
+
+                <select id="accountGameFilter"
+                        onchange="renderAccounts()">
+
+                    <option value="all"
+                            data-i18n="all_games">
+                        كل الألعاب
+                    </option>
+
+                    <option value="eFootball">
+                        eFootball
+                    </option>
+
+                    <option value="Free Fire">
+                        Free Fire
+                    </option>
+
+                    <option value="PUBG Mobile">
+                        PUBG Mobile
+                    </option>
+
+                    <option value="Call of Duty">
+                        Call of Duty
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <label data-i18n="search">
+                    البحث
+                </label>
+
+                <input
+                    id="accountSearch"
+                    type="text"
+                    data-i18n-placeholder="account_search_placeholder"
+                    placeholder="ابحث عن حساب..."
+                    oninput="renderAccounts()"
+                >
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <label data-i18n="sort">
+                    الترتيب
+                </label>
+
+                <select id="accountSort"
+                        onchange="renderAccounts()">
+
+                    <option value="default"
+                            data-i18n="recommended">
+                        المقترح
+                    </option>
+
+                    <option value="low">
+                        <span data-i18n="price_low">
+                            السعر: من الأقل
+                        </span>
+                    </option>
+
+                    <option value="high">
+                        السعر: من الأعلى
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="product-grid"
+             id="accountsGrid">
+
+            <!-- JavaScript will render accounts -->
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     RECHARGES PAGE
+========================================================= -->
+
+<section id="rechargesPage"
+         class="page">
+
+    <div class="page-header">
+
+        <div class="page-header-content">
+
+            <div class="breadcrumb">
+
+                <span onclick="showPage('home')"
+                      style="cursor:pointer"
+                      data-i18n="home">
+                    الرئيسية
+                </span>
+
+                <i class="fa-solid fa-chevron-left"></i>
+
+                <span data-i18n="recharges">
+                    الشحن
+                </span>
+
+            </div>
+
+
+            <h1 data-i18n="recharges_title">
+                شحن الألعاب
+            </h1>
+
+            <p data-i18n="recharges_page_description">
+                اختر اللعبة والمبلغ الذي تريد شحنه،
+                ثم أدخل المعلومات المطلوبة لإرسال طلبك.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="product-grid"
+             id="rechargesGrid">
+
+            <!-- JavaScript will render recharges -->
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ABOUT PAGE
+========================================================= -->
+
+<section id="aboutPage"
+         class="page">
+
+    <section class="about">
+
+        <div class="about-container">
+
+            <div class="about-icon">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+            </div>
+
+
+            <div class="about-content">
+
+                <span data-i18n="about_label">
+                    من نحن
+                </span>
+
+                <h2 data-i18n="about_title">
+                    منصة مصممة للاعبين الجزائريين.
+                </h2>
+
+                <p data-i18n="about_text_1">
+                    DZ Game Market هي منصة تجمع خدمات الألعاب
+                    في مكان واحد، من بيع وشراء الحسابات
+                    إلى خدمات شحن الألعاب.
+                </p>
+
+                <p data-i18n="about_text_2">
+                    هدفنا هو جعل تجربة شراء الخدمات الرقمية
+                    أكثر وضوحاً وسهولة وتنظيماً.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</section>
+<!-- =========================================================
+     JAVASCRIPT — DATA + MARKETPLACE
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/marketplace.js"></script>
+<!-- =========================================================
+     ACCOUNT / RECHARGE ORDER MODAL
+========================================================= -->
+
+<div class="modal-overlay"
+     id="orderModal">
+
+    <div class="modal"
+         id="orderModalContent">
+
+        <!-- JavaScript inserts the order form -->
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     LOGIN MODAL
+========================================================= -->
+
+
+
+
+<!-- =========================================================
+     REGISTER MODAL
+========================================================= -->
+
+
+
+<!-- =========================================================
+     CHECKOUT MODAL
+========================================================= -->
+
+
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div class="toast"
+     id="toast">
+</div>
+
+
+
+<!-- MEDIATORS -->
+<section id="mediatorsSection" class="mediators-section">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow" data-i18n="mediators_eyebrow">وسطاء موثوقون</span>
+      <h2 data-i18n="mediators_title">الوسطاء</h2>
+      <p data-i18n="mediators_description">تواصل مع الوسيط عبر منصة التواصل المناسبة.</p>
+    </div>
+    <div id="mediatorsGrid" class="mediators-grid">
+      <p class="mediators-loading" data-i18n="mediators_loading">جارٍ تحميل الوسطاء...</p>
+    </div>
+  </div>
+</section>
+
+<div id="dzgmInfoModal" class="dzgm-info-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="dzgmInfoTitle">
+  <div class="dzgm-info-dialog"><button class="dzgm-info-close" type="button" aria-label="إغلاق" onclick="window.dzgmCloseInfoModal()">×</button><h2 id="dzgmInfoTitle"></h2><div id="dzgmInfoBody"></div></div>
+</div>
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div class="footer-container">
+
+
+        <!-- BRAND -->
+      
+
+<div class="footer-brand">
+    <a href="#" class="logo" onclick="showPage('home'); return false;">
+        <div class="logo-icon">
+            <img
+                src="https://drive.google.com/thumbnail?id=1BdH4zdAh-NtOT6fUuIedgq9y7K2ROiXM"
+                alt="DZ Game Market Logo"
+                referrerpolicy="no-referrer"
+            >
+        </div>
+
+        <div class="logo-text">
+            <strong>DZ Game</strong>
+            <span>Market</span>
+        </div>
+    </a>
+</div>
+
+           
+        
+
+          
+ 
+
+
+             
+<div>
+
+            <p data-i18n="hero_badge">
+                منصة الألعاب الجزائرية
+            </p>
+
+        </div>
+
+
+        <!-- LINKS -->
+
+        <div class="footer-links">
+
+
+            <div>
+
+                <h4 data-i18n="nav_home">
+                    الرئيسية
+                </h4>
+
+
+                <a
+                    href="#"
+                    onclick="
+                        showPage('home');
+                        return false;
+                    "
+                    data-i18n="nav_home"
+                >
+                    الرئيسية
+                </a>
+
+
+                <a
+                    href="#accounts"
+                    onclick="
+                        showPage('accounts');
+                        return false;
+                    "
+                    data-i18n="nav_accounts"
+                >
+                    الحسابات
+                </a>
+
+
+                <a
+                    href="#recharges"
+                    onclick="
+                        showPage('recharges');
+                        return false;
+                    "
+                    data-i18n="nav_recharges"
+                >
+                    الشحن
+                </a>
+
+            </div>
+
+
+            <div>
+
+                <h4 data-i18n="nav_about">
+                    من نحن
+                </h4>
+
+
+                <a
+                    href="#about"
+                    onclick="
+                        showPage('about');
+                        return false;
+                    "
+                    data-i18n="nav_about"
+                >
+                    من نحن
+                </a>
+
+
+                <a href="#terms" onclick="window.dzgmOpenInfoModal('terms'); return false;"><span data-i18n="terms">الشروط والأحكام</span></a>
+
+
+                <a href="#contact" onclick="window.dzgmOpenInfoModal('contact'); return false;"><span data-i18n="contact">اتصل بنا</span></a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        © 2026 DZ Game Market —
+        <span
+            data-i18n="all_rights"
+        >
+            جميع الحقوق محفوظة
+        </span>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     PARTIE 4/4 — FINALISATION
+     ========================================================= -->
+
+<script src="js/finalization.js"></script>
+<script src="js/catalog.js"></script>
+<script src="js/mediators.js"></script>
+<script src="js/site-customizations.js"></script>
+
+
+</body>
+</html>
