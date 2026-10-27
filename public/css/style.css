@@ -2322,3 +2322,29 @@ html[data-theme="dark"] .account-card .btn-secondary { background:#12223a !impor
 .hero .hero p{margin-inline:auto;text-align:center;}
 .hero .hero-buttons{justify-content:center;}
 .hero .hero-visual{display:none;}
+
+
+/* Center the homepage hero content */
+.hero {
+    text-align: center;
+}
+
+.hero h1,
+.hero p {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero p {
+    max-width: 760px;
+}
+
+.hero .hero-actions,
+.hero .hero-buttons,
+.hero .actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
