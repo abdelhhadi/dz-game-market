@@ -83,6 +83,16 @@ app.get('/api/public/mediators', asyncRoute(async (_req,res) => {
   res.set('Cache-Control', 'no-store');
   res.json({ data: (data || []).map(row => Object.fromEntries(fields.filter(key => key in row).map(key => [key, row[key]]))) });
 }));
+
+ app.post('/api/admin/upload',requireAdmin, upload.single('image'), asyncRoute(async (req,res) => {
+  if (!req.file) return res.status(400).json({ error:'Upload a JPG, PNG, or WebP image under 5 MB.' });
+  const ext = ({'image/jpeg':'jpg','image/png':'png','image/webp':'webp'})[req.file.mimetype];
+  const filePath = `${randomUUID()}.${ext}`;
+  const { error } = await adminClient.storage.from('product-images').upload(filePath,req.file.buffer,{contentType:req.file.mimetype,upsert:false});
+  if (error) return res.status(400).json({ error:error.message });
+  const { data } = adminClient.storage.from('product-images').getPublicUrl(filePath);
+  res.status(201).json({ url:data.publicUrl });
+}));
 app.get('/api/admin/:resource', requireAdmin, asyncRoute(async (req,res) => {
   const table = tables[req.params.resource]; if (!table) return res.status(404).json({ error:'Unknown resource.' });
   const { data,error } = await adminClient.from(table).select('*').order('created_at',{ascending:false});
@@ -104,15 +114,6 @@ app.delete('/api/admin/:resource/:id', requireAdmin, asyncRoute(async (req,res) 
   const id = String(req.params.id); if (!/^\d+$/.test(id)) return res.status(400).json({ error:'Invalid record id.' });
   const { error } = await adminClient.from(table).delete().eq('id',Number(id));
   if (error) return res.status(400).json({ error:error.message }); res.json({ ok:true });
-}));
-app.post('/api/admin/upload', requireAdmin, upload.single('image'), asyncRoute(async (req,res) => {
-  if (!req.file) return res.status(400).json({ error:'Upload a JPG, PNG, or WebP image under 5 MB.' });
-  const ext = ({'image/jpeg':'jpg','image/png':'png','image/webp':'webp'})[req.file.mimetype];
-  const filePath = `${randomUUID()}.${ext}`;
-  const { error } = await adminClient.storage.from('product-images').upload(filePath,req.file.buffer,{contentType:req.file.mimetype,upsert:false});
-  if (error) return res.status(400).json({ error:error.message });
-  const { data } = adminClient.storage.from('product-images').getPublicUrl(filePath);
-  res.status(201).json({ url:data.publicUrl });
 }));
 // Serve the administrator interface separately from the public storefront.
 app.use('/admin', express.static(adminDir, { extensions: ['html'], dotfiles: 'deny', index: 'index.html' }));
