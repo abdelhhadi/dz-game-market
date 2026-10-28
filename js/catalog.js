@@ -8,21 +8,65 @@ window.recharges = recharges;
 const dzgmEsc = (value) => String(value ?? "").replace(/[&<>"']/g, c => ({
   "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
 }[c]));
-const dzgmT = (key, fallback) => window.translations?.[window.currentLanguage || localStorage.getItem("dzgm_language") || "ar"]?.[key] || fallback;
-const dzgmMoney = value => new Intl.NumberFormat("fr-DZ").format(Number(value || 0)) + " DA";
+
+const dzgmT = (key, fallback) =>
+  window.translations?.[
+    window.currentLanguage ||
+    localStorage.getItem("dzgm_language") ||
+    "ar"
+  ]?.[key] || fallback;
+
+const dzgmMoney = value =>
+  new Intl.NumberFormat("fr-DZ").format(Number(value)) + " DA";
+
 const dzgmPriceMarkup = p => {
   const rows = [
-    {key:"supports_dzd", price:p.price, label:dzgmT("currency_dzd", "الدينار الجزائري"), value:v=>dzgmMoney(v), supported:p.supports_dzd},
-    {key:"supports_usd", price:p.price_usd, label:dzgmT("currency_usd", "الدولار"), value:v=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(Number(v)), supported:p.supports_usd},
-    {key:"supports_flexy", price:p.price_flexy, label:dzgmT("currency_flexy", "الفليكسي"), value:v=>dzgmMoney(v), supported:p.supports_flexy}
+    {
+      key: "supports_dzd",
+      price: p.price,
+      label: dzgmT("currency_dzd", "الدينار الجزائري"),
+      value: v => dzgmMoney(v),
+      supported: p.supports_dzd
+    },
+    {
+      key: "supports_usd",
+      price: p.price_usd,
+      label: dzgmT("currency_usd", "الدولار"),
+      value: v =>
+        new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD"
+        }).format(Number(v)),
+      supported: p.supports_usd
+    },
+    {
+      key: "supports_flexy",
+      price: p.price_flexy,
+      label: dzgmT("currency_flexy", "الفليكسي"),
+      value: v => dzgmMoney(v),
+      supported: p.supports_flexy
+    }
   ];
-  return `<div class="dzgm-price-list">${rows.map(r=>{
+
+  return `<div class="dzgm-price-list">${rows.map(r => {
     const supported = r.supported !== false;
-    const hasPrice = r.price !== null && r.price !== undefined && r.price !== "";
-    const text = !supported ? dzgmT("unsupported_payment", "لا ندعم هذه الطريقة") : (hasPrice ? r.value(r.price) : dzgmT("price_unspecified", "السعر غير محدد"));
-    return `<div class="dzgm-price-row ${supported?"":"unsupported"}"><span>${r.label}</span><strong>${dzgmEsc(text)}</strong></div>`;
+    const hasPrice =
+      r.price !== null &&
+      r.price !== undefined &&
+      String(r.price).trim() !== "" &&
+      Number.isFinite(Number(r.price)) &&
+      Number(r.price) > 0;
+
+    const text = !supported
+      ? dzgmT("unsupported_payment", "لا ندعم هذه الطريقة")
+      : hasPrice
+        ? r.value(r.price)
+        : dzgmT("price_unspecified", "لم يتم تحديث السعر بعد");
+
+    return `<div class="dzgm-price-row ${supported ? "" : "unsupported"}"><span>${r.label}</span><strong>${dzgmEsc(text)}</strong></div>`;
   }).join("")}</div>`;
 };
+
 const dzgmSocialLinks = (raw) => {
   if (!raw) return "";
   let items = [];
