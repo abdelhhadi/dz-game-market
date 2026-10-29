@@ -951,92 +951,50 @@ function toggleMobileMenu() {
    PAGE NAVIGATION
 ========================================================= */
 
-function showPage(page) {
+function showPage(page, options = {}) {
+    const validPages = ["home", "accounts", "recharges", "about"];
+    if (!validPages.includes(page)) page = "home";
 
-    document
-        .querySelectorAll(".page")
-        .forEach(element => {
-
-            element.classList.remove(
-                "active"
-            );
-
-        });
-
-
-    const target =
-        document.getElementById(
-            page + "Page"
-        );
-
-
-    if (target) {
-
-        target.classList.add("active");
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
+    // Keep browser/device Back navigation inside the single-page website.
+    if (!options.skipHistory) {
+        const current = history.state?.dzgmPage;
+        if (current !== page) {
+            history.pushState({ ...(history.state || {}), dzgmPage: page }, "", `#${page}`);
+        }
     }
 
+    document.querySelectorAll(".page").forEach(element => {
+        element.classList.toggle("active", element.id === `${page}Page`);
+    });
 
-    document
-        .querySelectorAll(".menu a")
-        .forEach(link => {
+    document.querySelectorAll(".menu a").forEach(link => link.classList.remove("active"));
+    const menuLinks = document.querySelectorAll(".menu a");
+    const menuIndex = { home: 0, accounts: 1, recharges: 2, about: 3 };
+    if (menuIndex[page] !== undefined) menuLinks[menuIndex[page]]?.classList.add("active");
 
-            link.classList.remove(
-                "active"
-            );
+    // Close the mobile navigation after selecting a destination.
+    document.getElementById("mobileMenu")?.classList.remove("show");
 
-        });
+    if (page === "accounts" && typeof renderAccounts === "function") renderAccounts();
+    if (page === "recharges" && typeof renderRecharges === "function") renderRecharges();
 
-
-    const menuLinks =
-        document.querySelectorAll(
-            ".menu a"
-        );
-
-
-    if (page === "home") {
-
-        menuLinks[0]
-            ?.classList.add("active");
-
-    } else if (page === "accounts") {
-
-        menuLinks[1]
-            ?.classList.add("active");
-
-    } else if (page === "recharges") {
-
-        menuLinks[2]
-            ?.classList.add("active");
-
-    } else if (page === "about") {
-
-        menuLinks[3]
-            ?.classList.add("active");
-
-    }
-
-
-    if (page === "accounts") {
-
-        renderAccounts();
-
-    }
-
-
-    if (page === "recharges") {
-
-        renderRecharges();
-
-    }
-
+    window.scrollTo({ top: 0, behavior: options.skipHistory ? "auto" : "smooth" });
 }
 
+(function setupDzgmBackNavigation() {
+    const initialPage = (location.hash || "").replace(/^#/, "");
+    const validPages = ["home", "accounts", "recharges", "about"];
+    const page = validPages.includes(initialPage) ? initialPage : "home";
+    if (!history.state?.dzgmPage) {
+        history.replaceState({ ...(history.state || {}), dzgmPage: page }, "", location.pathname + location.search + `#${page}`);
+    }
+    window.addEventListener("popstate", event => {
+        const statePage = event.state?.dzgmPage;
+        const hashPage = (location.hash || "").replace(/^#/, "");
+        const targetPage = validPages.includes(statePage) ? statePage : (validPages.includes(hashPage) ? hashPage : "home");
+        showPage(targetPage, { skipHistory: true });
+    });
+})();
 
 /* =========================================================
    ACCOUNT FILTER
