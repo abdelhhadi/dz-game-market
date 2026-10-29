@@ -951,50 +951,153 @@ function toggleMobileMenu() {
    PAGE NAVIGATION
 ========================================================= */
 
-function showPage(page, options = {}) {
-    const validPages = ["home", "accounts", "recharges", "about"];
-    if (!validPages.includes(page)) page = "home";
+/* Internal page navigation history: lets browser/Android back return to
+   the previous in-site section instead of immediately leaving the site. */
+let dzgmCurrentPage = "home";
+let dzgmHandlingPopState = false;
 
-    // Keep browser/device Back navigation inside the single-page website.
-    if (!options.skipHistory) {
-        const current = history.state?.dzgmPage;
-        if (current !== page) {
-            history.pushState({ ...(history.state || {}), dzgmPage: page }, "", `#${page}`);
-        }
+function dzgmGetActivePage() {
+    const active = document.querySelector(".page.active");
+    if (active && active.id && active.id.endsWith("Page")) {
+        return active.id.slice(0, -4);
     }
-
-    document.querySelectorAll(".page").forEach(element => {
-        element.classList.toggle("active", element.id === `${page}Page`);
-    });
-
-    document.querySelectorAll(".menu a").forEach(link => link.classList.remove("active"));
-    const menuLinks = document.querySelectorAll(".menu a");
-    const menuIndex = { home: 0, accounts: 1, recharges: 2, about: 3 };
-    if (menuIndex[page] !== undefined) menuLinks[menuIndex[page]]?.classList.add("active");
-
-    // Close the mobile navigation after selecting a destination.
-    document.getElementById("mobileMenu")?.classList.remove("show");
-
-    if (page === "accounts" && typeof renderAccounts === "function") renderAccounts();
-    if (page === "recharges" && typeof renderRecharges === "function") renderRecharges();
-
-    window.scrollTo({ top: 0, behavior: options.skipHistory ? "auto" : "smooth" });
+    return "home";
 }
 
-(function setupDzgmBackNavigation() {
-    const initialPage = (location.hash || "").replace(/^#/, "");
-    const validPages = ["home", "accounts", "recharges", "about"];
-    const page = validPages.includes(initialPage) ? initialPage : "home";
-    if (!history.state?.dzgmPage) {
-        history.replaceState({ ...(history.state || {}), dzgmPage: page }, "", location.pathname + location.search + `#${page}`);
+function dzgmValidPage(page) {
+    return typeof page === "string" &&
+        !!document.getElementById(page + "Page");
+}
+
+function dzgmInitPageHistory() {
+    dzgmCurrentPage = dzgmGetActivePage();
+    const currentState = history.state && typeof history.state === "object"
+        ? history.state : {};
+    history.replaceState(
+        { ...currentState, dzgmPage: dzgmCurrentPage },
+        "",
+        location.href
+    );
+}
+
+window.addEventListener("popstate", function(event) {
+    const page = event.state && event.state.dzgmPage
+        ? event.state.dzgmPage
+        : (location.hash ? location.hash.slice(1) : "home");
+    if (dzgmValidPage(page)) {
+        dzgmHandlingPopState = true;
+        showPage(page, { fromHistory: true });
+        dzgmHandlingPopState = false;
     }
-    window.addEventListener("popstate", event => {
-        const statePage = event.state?.dzgmPage;
-        const hashPage = (location.hash || "").replace(/^#/, "");
-        const targetPage = validPages.includes(statePage) ? statePage : (validPages.includes(hashPage) ? hashPage : "home");
-        showPage(targetPage, { skipHistory: true });
-    });
-})();
+});
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", dzgmInitPageHistory, { once: true });
+} else {
+    dzgmInitPageHistory();
+}
+
+function showPage(page, options = {}) {
+    if (!dzgmValidPage(page)) return;
+
+    const previousPage = dzgmCurrentPage || dzgmGetActivePage();
+    if (!options.fromHistory && !dzgmHandlingPopState && page !== previousPage) {
+        try {
+            history.pushState(
+                { ...(history.state && typeof history.state === "object" ? history.state : {}), dzgmPage: page },
+                "",
+                "#" + encodeURIComponent(page)
+            );
+        } catch (error) {
+            /* Keep navigation working even in browsers that restrict history updates. */
+        }
+    }
+    dzgmCurrentPage = page;
+
+    document
+        .querySelectorAll(".page")
+        .forEach(element => {
+
+            element.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    const target =
+        document.getElementById(
+            page + "Page"
+        );
+
+
+    if (target) {
+
+        target.classList.add("active");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    document
+        .querySelectorAll(".menu a")
+        .forEach(link => {
+
+            link.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    const menuLinks =
+        document.querySelectorAll(
+            ".menu a"
+        );
+
+
+    if (page === "home") {
+
+        menuLinks[0]
+            ?.classList.add("active");
+
+    } else if (page === "accounts") {
+
+        menuLinks[1]
+            ?.classList.add("active");
+
+    } else if (page === "recharges") {
+
+        menuLinks[2]
+            ?.classList.add("active");
+
+    } else if (page === "about") {
+
+        menuLinks[3]
+            ?.classList.add("active");
+
+    }
+
+
+    if (page === "accounts") {
+
+        renderAccounts();
+
+    }
+
+
+    if (page === "recharges") {
+
+        renderRecharges();
+
+    }
+
+}
+
 
 /* =========================================================
    ACCOUNT FILTER

@@ -2352,117 +2352,212 @@ html[data-theme="dark"] .account-card .btn-secondary { background:#12223a !impor
 
 
 /* =========================================================
-   DZGM responsive polish: mobile/tablet header and footer
+   DZGM MOBILE RESPONSIVE REPAIR — header, footer, overflow
    ========================================================= */
-.nav-container,
-.nav-actions,
-.nav-container .logo,
-.footer-container,
-.footer-brand,
-.footer-links {
-  min-width: 0;
+html, body {
+  max-width: 100%;
+  overflow-x: clip;
 }
-
-.nav-container .logo-text {
-  display: flex;
-  min-width: 0;
-}
-.nav-container .logo-text strong,
-.nav-container .logo-text span,
-.footer-brand .logo-text strong,
-.footer-brand .logo-text span {
-  white-space: nowrap;
-}
-
-.footer-container {
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-.footer-brand {
-  flex: 0 1 220px;
-}
-.footer-links {
-  flex: 1 1 300px;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-}
-.footer-links > div {
-  min-width: 120px;
-}
-.footer-bottom {
-  line-height: 1.8;
-  overflow-wrap: anywhere;
-}
-
-img, video, iframe {
+img, video, canvas, iframe {
   max-width: 100%;
 }
-button, input, select, textarea {
-  max-width: 100%;
-}
-.page, .section, .container, .nav-container, .footer-container {
-  min-width: 0;
-}
-.product-grid, .category-grid, .games-grid, .account-detail-grid {
-  min-width: 0;
-}
-.product-card, .account-card, .recharge-card, .mediator-card {
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-@media (max-width: 800px) {
-  .navbar { height: auto; min-height: 70px; }
+@media (max-width: 768px) {
   .nav-container {
-    width: min(100% - 24px, var(--container));
-    min-height: 70px;
-    padding-block: 8px;
+    width: calc(100% - 24px);
     gap: 10px;
   }
-  .nav-container .logo { gap: 7px; }
+  .nav-container .logo {
+    gap: 7px;
+    min-width: 0;
+    flex: 0 1 auto;
+  }
   .nav-container .logo > div:first-child,
   .nav-container .logo img {
     width: 42px;
     height: 42px;
   }
-  .nav-container .logo-text { display: flex !important; }
-  .nav-container .logo-text strong { font-size: clamp(12px, 3.5vw, 16px); }
-  .nav-container .logo-text span { font-size: 10px; }
-  .nav-actions { gap: 6px; }
-  .nav-actions > * { flex-shrink: 0; }
-  .footer-container {
-    width: min(100% - 32px, var(--container));
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 24px;
-    padding-bottom: 26px;
+  .nav-container .logo-text {
+    display: flex !important;
+    min-width: 0;
+    white-space: nowrap;
   }
-  .footer-brand { width: 100%; }
+  .nav-container .logo-text strong {
+    font-size: clamp(11px, 3vw, 15px);
+  }
+  .nav-container .logo-text span {
+    font-size: 10px;
+  }
+  .menu {
+    gap: 10px;
+    min-width: 0;
+  }
+  .menu a {
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .nav-actions {
+    gap: 5px;
+    flex-shrink: 0;
+  }
+  .nav-actions button {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  footer {
+    padding-top: 26px;
+  }
+  .footer-container {
+    width: calc(100% - 28px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+    align-items: start;
+    gap: 20px 14px;
+    padding-bottom: 24px;
+  }
+  .footer-brand {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+  .footer-brand .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 100%;
+  }
+  .footer-brand .logo-icon {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+  }
+  footer .footer-brand .logo-text {
+    display: flex !important;
+    min-width: 0;
+    white-space: nowrap;
+  }
+  footer .footer-brand .logo-text strong {
+    font-size: 15px;
+    line-height: 1.25;
+  }
+  footer .footer-brand .logo-text span {
+    font-size: 11px;
+  }
+  .footer-container > div:nth-child(2) {
+    grid-column: 1 / -1;
+    margin: 0;
+    min-width: 0;
+  }
+  .footer-container > div:nth-child(2) p {
+    margin: 0;
+    color: var(--light-muted);
+    font-size: 13px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+  }
   .footer-links {
+    grid-column: 1 / -1;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
+    gap: 20px 16px;
     width: 100%;
+    min-width: 0;
   }
-  .footer-links > div { min-width: 0; gap: 10px; }
-  .footer-links h4 { font-size: 14px; }
-  .footer-links a { font-size: 13px; line-height: 1.7; }
-  footer { padding-top: 28px; }
-  .footer-bottom { padding: 16px 12px; font-size: 11px; }
+  .footer-links > div {
+    min-width: 0;
+    gap: 10px;
+  }
+  .footer-links h4 {
+    margin: 0 0 3px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .footer-links a {
+    display: inline-block;
+    font-size: 12px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+  }
+  .footer-bottom {
+    display: block;
+    padding: 14px 10px;
+    font-size: 10px;
+    line-height: 1.8;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
 }
-
-@media (max-width: 420px) {
-  .nav-container { width: calc(100% - 18px); gap: 6px; }
-  .nav-container .logo { gap: 5px; }
+@media (max-width: 560px) {
+  /* Do not hide brand text on phones; make the header fit instead. */
+  .logo-text {
+    display: flex;
+  }
+  .nav-container {
+    width: calc(100% - 18px);
+    gap: 7px;
+  }
+  .navbar {
+    height: auto;
+    min-height: 64px;
+  }
   .nav-container .logo > div:first-child,
-  .nav-container .logo img { width: 36px; height: 36px; }
-  .nav-container .logo-text strong { font-size: 12px; }
-  .nav-container .logo-text span { font-size: 9px; }
-  .nav-actions { gap: 4px; }
-  .footer-links { gap: 18px 12px; }
-  .footer-bottom { font-size: 10px; }
-  .hero .hero-container { padding-inline: 16px; }
-  .hero p { overflow-wrap: anywhere; }
-  .hero-buttons { gap: 10px; }
-  .hero-buttons .btn { white-space: normal; }
+  .nav-container .logo img {
+    width: 36px;
+    height: 36px;
+  }
+  .nav-container .logo-text strong {
+    font-size: 11px;
+  }
+  .nav-container .logo-text span {
+    font-size: 9px;
+  }
+  /* Hide only the desktop navigation links, not the logo or utility controls. */
+  .nav-container .menu {
+    display: none;
+  }
+  .nav-actions {
+    margin-inline-start: auto;
+  }
+  .footer-container {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    padding-bottom: 20px;
+  }
+  .footer-brand,
+  .footer-container > div:nth-child(2),
+  .footer-links {
+    grid-column: 1;
+  }
+  .footer-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 12px;
+  }
+  .footer-links h4 {
+    font-size: 13px;
+  }
+  .footer-links a {
+    font-size: 12px;
+  }
+  .footer-bottom {
+    font-size: 10px;
+    padding: 12px 8px;
+  }
+}
+@media (max-width: 360px) {
+  .nav-container .logo {
+    gap: 5px;
+  }
+  .nav-container .logo > div:first-child,
+  .nav-container .logo img {
+    width: 32px;
+    height: 32px;
+  }
+  .nav-container .logo-text strong {
+    font-size: 10px;
+  }
+  .nav-container .logo-text span {
+    font-size: 8px;
+  }
+  .footer-links {
+    gap: 14px 8px;
+  }
 }
