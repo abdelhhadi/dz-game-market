@@ -43,32 +43,8 @@ $("loginForm").addEventListener("submit",async e=>{
  loginStatus("");await requireAdmin();
 });
 $("logoutBtn").addEventListener("click",async()=>{await supabaseClient.auth.signOut();showDashboard(false);resetForm();});
-$("refreshBtn").addEventListener("click", async () => {
- const btn = $("refreshBtn");
- if (!btn || btn.disabled) return;
- const originalHTML = btn.innerHTML;
- btn.disabled = true;
- btn.setAttribute("aria-busy", "true");
- btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> جارٍ التحديث...';
- status("جارٍ تحديث المنتجات والوسطاء...");
- try {
-  const { data: { session } } = await supabaseClient.auth.getSession();
-  if (!session || session.user.id !== ADMIN_UID) {
-   showDashboard(false);
-   status("انتهت جلسة المسؤول. سجّل الدخول مجددًا.", true);
-   return;
-  }
-  // Refresh both data sets displayed by the dashboard.
-  await Promise.all([loadProducts(), loadMediators()]);
-  status("اكتمل تحديث بيانات المنتجات والوسطاء.");
- } catch (error) {
-  console.error("Dashboard refresh failed:", error);
-  status("تعذر تحديث البيانات: " + (error.message || "خطأ غير معروف"), true);
- } finally {
-  btn.disabled = false;
-  btn.removeAttribute("aria-busy");
-  btn.innerHTML = originalHTML;
- }
+$("refreshBtn").addEventListener("click", () => {
+  window.location.reload();
 });
 $("category").addEventListener("change",updateCategoryFields);
 function updateCategoryFields(){
