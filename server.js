@@ -30,6 +30,12 @@ app.get("/google8e5414056d6444a9.html", (req, res) => {
 });
 
 
+// Google Search Console verification
+app.get("/google8e5414056d6444a9.html", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "public", "google8e5414056d6444a9.html")
+  );
+});
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
