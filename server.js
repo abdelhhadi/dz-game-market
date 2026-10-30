@@ -21,6 +21,17 @@ const authClient = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, { auth: 
 const adminClient = createClient(SUPABASE_URL, SUPABASE_SECRET_KEY, { auth: { persistSession: false, autoRefreshToken: false } });
 const app = express();
 
+// SEO files for Google Search Console
+app.get('/sitemap.xml', (req, res) => {
+  res.type('application/xml');
+  res.sendFile(path.join(__dirname, 'public', 'sitemap.xml'));
+});
+
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain');
+  res.sendFile(path.join(__dirname, 'public', 'robots.txt'));
+});
+
 // Serve frontend files and Google verification file
 app.use(express.static(path.join(__dirname, "public")));
 app.get("/google8e5414056d6444a9.html", (req, res) => {

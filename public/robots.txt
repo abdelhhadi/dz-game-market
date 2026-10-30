@@ -1,0 +1,7 @@
+
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+
+Sitemap: https://dz-game-market.vercel.app/sitemap.xml
