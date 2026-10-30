@@ -6,6 +6,3 @@
         <priority>1.0</priority>
     </url>
 </urlset>
-git add public/sitemap.xml
-git commit -m "Fix XML declaration position"
-git push origin main
