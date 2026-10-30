@@ -21,6 +21,9 @@ const authClient = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, { auth: 
 const adminClient = createClient(SUPABASE_URL, SUPABASE_SECRET_KEY, { auth: { persistSession: false, autoRefreshToken: false } });
 const app = express();
 
+// Serve frontend files and Google verification file
+app.use(express.static(path.join(__dirname, "public")));
+
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
