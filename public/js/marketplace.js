@@ -966,12 +966,34 @@ function changeLanguage(language) {
 
 function toggleLanguageMenu() {
 
-    const menu =
-        document.getElementById(
-            "languageMenu"
-        );
+    const menu = document.getElementById("languageMenu");
+    const wrapper = document.querySelector(".language-wrapper");
+    const button = wrapper?.querySelector(".language-btn");
 
-    menu.classList.toggle("show");
+    if (!menu || !button) return;
+
+    if (menu.classList.contains("show")) {
+        menu.classList.remove("show");
+        return;
+    }
+
+    // Display before measuring, then keep the dropdown inside the viewport.
+    menu.classList.add("show");
+
+    const buttonRect = button.getBoundingClientRect();
+    const menuWidth = menu.getBoundingClientRect().width;
+    const viewportWidth = document.documentElement.clientWidth;
+    const margin = 8;
+
+    const left = Math.max(
+        margin,
+        Math.min(buttonRect.left, viewportWidth - menuWidth - margin)
+    );
+
+    menu.style.position = "fixed";
+    menu.style.left = `${left}px`;
+    menu.style.right = "auto";
+    menu.style.top = `${buttonRect.bottom + 9}px`;
 }
 
 

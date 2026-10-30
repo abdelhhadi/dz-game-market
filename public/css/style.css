@@ -386,26 +386,21 @@ img {
 }
 
 .language-menu {
-    position: absolute;
-
-    top: calc(100% + 9px);
-
-    right: 0;
+    /* JS places the menu under its trigger and clamps it to the viewport. */
+    position: fixed;
+    top: 0;
+    left: 8px;
+    right: auto;
 
     min-width: 145px;
+    max-width: calc(100vw - 16px);
 
     padding: 7px;
-
     background: white;
-
     border: 1px solid var(--border);
-
     border-radius: 12px;
-
     box-shadow: var(--shadow-md);
-
     display: none;
-
     z-index: 2000;
 }
 
